@@ -1,0 +1,22 @@
+[
+	{
+		"id": "1",
+		"name": "Plane old red beans",
+		"price": "1.50"
+	},
+	{
+		"id": "2",
+		"name": "Just mild",
+		"price": "2.50"
+	},
+	{
+		"id": "3",
+		"name": "Fresh bread",
+		"price": "1.29"
+	},
+	{
+		"id": "4",
+		"name": "Sea breeze air freshner",
+		"price": "4.50"
+	}
+]

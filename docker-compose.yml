@@ -1,0 +1,48 @@
+version: '2.4'
+
+# Templates:
+x-base: &base-service-template
+  init: true
+  networks:
+    local:
+
+services:
+
+  mongo:
+    <<: *base-service-template
+    image: mongo:latest
+    container_name: mongo
+    command: >
+      sh -c "mongod --bind_ip 0.0.0.0 --port 80"
+    ports:
+      - "27017:80"
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo mongo1:80 --quiet
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  unicorn:
+    <<: *base-service-template
+    image: mirzamerdovic/unicorn:1.1.0
+    container_name: unicorn
+    environment:
+      - MONGO_ADDRESS=mongo:80
+      - RECREATE_COLLECTIONS=true
+    depends_on:
+      - mongo1
+    volumes:
+      - type: bind
+        source: ./data/unicorn
+        target: /imports
+        read_only: true
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo mongo --quiet
+      interval: 14s
+      timeout: 3s
+      retries: 3
+      start_period: 1s
+
+networks:
+  local:
+    name: local
