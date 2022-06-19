@@ -9,7 +9,9 @@ namespace MyMongo.DataAccess.AdminDb
     {
     }
 
-    public sealed class AdminDbDatabaseFactory : MongoDatabaseFactory<AdminDbDatabaseOptions>, IAdminDbDatabaseFactory
+    public sealed class AdminDbDatabaseFactory :
+        MongoDatabaseFactory<AdminDbDatabaseOptions>,
+        IAdminDbDatabaseFactory
     {
         public AdminDbDatabaseFactory(
             IOptions<AdminDbDatabaseOptions> options,

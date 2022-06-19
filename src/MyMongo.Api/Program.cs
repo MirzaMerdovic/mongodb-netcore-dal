@@ -21,19 +21,6 @@ namespace MyMongo.Api
 
             services.AddAdminDb(configuration);
             services.AddProductDb(configuration);
-            //services.Configure<MongoConnectionOptions>(configuration.GetSection("MongoOptions:Client"));
-            //services.Configure<AdminDbDatabaseOptions>(configuration.GetSection("MongoOptions:Databases:0"));
-            //services.Configure<UsersCollectionOptions>(configuration.GetSection("MongoOptions:Databases:0:Collections:0"));
-            //services.Configure<ProductDbDatabaseOptions>(configuration.GetSection("MongoOptions:Databases:1"));
-            //services.Configure<ProductsCollectionOptions>(configuration.GetSection("MongoOptions:Databases:1:Collections:0"));
-            //services.Configure<ProducersCollectionOptions>(configuration.GetSection("MongoOptions:Databases:1:Collections:1"));
-
-            //services.AddSingleton<IMongoClientFactory, MongoClientFactory>();
-            //services.AddSingleton<IAdminDbDatabaseFactory, AdminDbDatabaseFactory>();
-            //services.AddSingleton<IUsersCollectionFactory, UsersCollectionFactory>();
-            //services.AddSingleton<IProductDbDatabaseFactory, ProductDbDatabaseFactory>();
-            //services.AddSingleton<IProductsCollectionFactory, ProductsCollectionFactory>();
-            //services.AddSingleton<IProducersCollectionFactory, ProducersCollectionFactory>();
 
             var app = builder.Build();
 
@@ -49,13 +36,13 @@ namespace MyMongo.Api
                     IProducersCollectionFactory producersFactory) =>
             {
                 var users = await usersFactory.Get<User>(httpContext.RequestAborted);
-                var count = await users.CountDocumentsAsync<User>(x => x.Id != null);
+                var count = await users.CountDocumentsAsync(x => x.Id != null);
 
                 var products = await productsFactory.Get<Product>(httpContext.RequestAborted);
-                count = await products.CountDocumentsAsync<Product>(x => x.Id != null);
+                count = await products.CountDocumentsAsync(x => x.Id != null);
 
                 var producers = await producersFactory.Get<Producer>(httpContext.RequestAborted);
-                count = await producers.CountDocumentsAsync<Producer>(x => x.Id != null);
+                count = await producers.CountDocumentsAsync(x => x.Id != null);
 
                 return "OK";
             });

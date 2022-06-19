@@ -8,8 +8,8 @@ namespace MyMongo.DataAccess.ProductDb.Producers
     {
     }
 
-    public sealed class ProducersCollectionFactory
-        : MongoCollectionFactory<ProducersCollectionOptions, IProductDbDatabaseFactory>,
+    public sealed class ProducersCollectionFactory :
+        MongoCollectionFactory<ProducersCollectionOptions, IProductDbDatabaseFactory>,
         IProducersCollectionFactory
     {
         public ProducersCollectionFactory(

@@ -14,7 +14,7 @@ namespace MyMongo.Infrastructure.Clients
 
         public MongoClientFactory(IOptions<MongoConnectionOptions> options, ILogger<MongoClientFactory> logger)
         {
-            _options = options.Value ?? throw new ArgumentNullException(nameof(options));
+            _options = options.Value;
             _logger = logger;
         }
 

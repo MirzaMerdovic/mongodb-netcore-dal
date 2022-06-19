@@ -8,7 +8,9 @@ namespace MyMongo.DataAccess.AdminDb.Users
     {
     }
 
-    public sealed class UsersCollectionFactory : MongoCollectionFactory<UsersCollectionOptions, IAdminDbDatabaseFactory>, IUsersCollectionFactory
+    public sealed class UsersCollectionFactory :
+        MongoCollectionFactory<UsersCollectionOptions, IAdminDbDatabaseFactory>,
+        IUsersCollectionFactory
     {
         public UsersCollectionFactory(
             IOptions<UsersCollectionOptions> options,

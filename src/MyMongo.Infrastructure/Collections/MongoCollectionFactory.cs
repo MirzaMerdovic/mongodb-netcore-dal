@@ -6,24 +6,24 @@ using System.Collections.Concurrent;
 
 namespace MyMongo.Infrastructure.Collections
 {
-    public abstract class MongoCollectionFactory<TOptions, TFactory>
-        : IMongoCollectionFactory
+    public abstract class MongoCollectionFactory<TOptions, TFactory> :
+        IMongoCollectionFactory
         where TOptions : MongoCollectionOptions, new()
         where TFactory : IMongoDatabaseFactory
     {
         private readonly ConcurrentDictionary<string, object> _cache = new();
 
         private readonly TOptions _options;
-        private readonly TFactory _databaseFactory;
+        private readonly TFactory _factory;
         private readonly ILogger _logger;
 
         protected MongoCollectionFactory(
             IOptions<TOptions> options,
-            TFactory databaseFactory,
+            TFactory factory,
             ILogger logger)
         {
             _options = options.Value;
-            _databaseFactory = databaseFactory;
+            _factory = factory;
             _logger = logger;
         }
 
@@ -37,7 +37,7 @@ namespace MyMongo.Infrastructure.Collections
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException("CollectionName not configured.");
 
-            IMongoDatabase database = await _databaseFactory.Get(ct).ConfigureAwait(false);
+            IMongoDatabase database = await _factory.Get(ct).ConfigureAwait(false);
 
             if (_cache.ContainsKey(name))
             {

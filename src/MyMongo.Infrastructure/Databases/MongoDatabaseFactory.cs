@@ -6,8 +6,8 @@ using System.Collections.Concurrent;
 
 namespace MyMongo.Infrastructure.Databases
 {
-    public abstract class MongoDatabaseFactory<TOptions>
-        : IMongoDatabaseFactory
+    public abstract class MongoDatabaseFactory<TOptions> :
+        IMongoDatabaseFactory
         where TOptions : MongoDatabaseOptions, new()
     {
         private readonly ConcurrentDictionary<string, IMongoDatabase> _cache = new();
